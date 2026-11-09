@@ -15,13 +15,10 @@ import { gsap, ScrollTrigger, SplitText, scrollToId, startSmoothScroll } from '.
 
 const IG = 'https://www.instagram.com/'
 
-/* Visitor's own city and time, from their timezone. True, personal, no tracking. */
+/* Visitor's local time comes from their timezone; the destination is always "your city". */
 function visitorPlace() {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''
-  const aliases: Record<string, string> = { Calcutta: 'Kolkata', Kiev: 'Kyiv', Saigon: 'Ho Chi Minh' }
-  const raw = tz.includes('/') ? tz.split('/').pop()!.replace(/_/g, ' ') : ''
-  const city = (aliases[raw] ?? raw).toUpperCase()
-  return { tz, city: city && city.length <= 14 ? city : 'YOUR CITY' }
+  return { tz, city: 'YOUR CITY' }
 }
 
 function useClock(tz: string) {
@@ -723,12 +720,15 @@ function Footer() {
   return (
     <footer className="footer on-light">
       <div className="grid footer-row">
-        <span className="label c-1-4">© 2026 Content Autopilot</span>
-        <a className="label c-5-8" href={IG + 'theguy/'} target="_blank" rel="noreferrer">
+        <span className="label c-1-3">© 2026 Content Autopilot</span>
+        <a className="label c-4-6" href={IG + 'theguy/'} target="_blank" rel="noreferrer">
           @theguy ↗
         </a>
-        <a className="label c-9-12 right" href={IG + 'contentautopilot/'} target="_blank" rel="noreferrer">
+        <a className="label c-7-9" href={IG + 'contentautopilot/'} target="_blank" rel="noreferrer">
           @contentautopilot ↗
+        </a>
+        <a className="label c-10-12 right credit" href="https://anaybauskar.me" target="_blank" rel="noreferrer">
+          Made by Anay ↗
         </a>
       </div>
       <p className="wordmark" aria-label={word}>
